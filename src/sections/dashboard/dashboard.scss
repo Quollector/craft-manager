@@ -1,0 +1,344 @@
+.dashboard{
+    padding: 24px 4vw;
+
+    // THEADER
+    .dash-theader{
+        display: grid;
+        grid-template-columns: 2fr 2fr 2fr 2fr 2fr 3fr;
+        grid-gap: 4px;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+
+        li{
+            font-size: 24px;
+            text-align: center;
+            padding: 8px 16px;
+            background: #D9D9D9;
+
+            &:first-child{
+                border-radius: 12px 0 0 12px;
+            }
+
+            &:last-child{
+                border-radius: 0 12px 12px 0;
+            }
+        }
+    }
+
+    // LIST ITEMS
+    .dash-listItems{
+        margin: 0;
+        padding: 16px 0 24px;
+        list-style-type: none;
+
+        & > li{
+            & + li{
+                margin-top: 16px;
+            }
+
+            &:nth-child(2n){
+                .item-datas{
+                    li{
+                        background: #eeeeee;
+                    }
+                }
+            }
+        }
+
+        .item-datas{
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            display: grid;
+            grid-template-columns: 2fr 2fr 2fr 2fr 2fr 3fr;
+            grid-gap: 4px;
+
+            li{
+                background: #F2F2F2;
+                overflow: hidden;
+
+                &:first-child{
+                    border-radius: 12px 0 0 12px;
+                }
+
+                &:last-child{
+                    border-radius: 0 12px 12px 0;
+                }
+            }
+
+            // BASE
+            .item-base{
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: 4px;
+
+                img{
+                    display: block;
+                    width: 115px;
+                    height: 115px;
+                    position: relative;
+                    z-index: 1;
+                    object-fit: cover;
+                    object-position: center center;
+                }
+
+                p{
+                    max-width: 130px;
+                    text-align: center;
+                    margin: 0;
+                    font-size: 16px;
+                }
+
+                .flasher{
+                    position: absolute;
+                    z-index: 2;
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 50%;
+                    top: 12px;
+                    left: 12px;
+                    transition: background .3s;
+                }
+            }
+
+            // INPUT/RESULT
+            .item-input, .item-result{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                padding: 20px;
+                box-sizing: border-box;
+                position: relative;
+
+                input{
+                    max-width: 135px;
+                    height: 40px;
+                    border-radius: 8px;
+                    border: 1px solid black;
+                    background: white;
+                    -moz-appearance: textfield;
+                    text-align: right;
+                    color: black;
+                    font-size: 20px;
+                    padding: 0 8px;
+                    box-sizing: border-box;
+
+                    &::-webkit-outer-spin-button, &::-webkit-inner-spin-button{
+                        -webkit-appearance: none;
+                        margin: 0;
+                    }
+                }
+                
+                span{
+                    font-size: 20px;
+                }
+                
+                img{
+                    height: 16px;
+                    width: auto;
+                }
+
+                .changeButtons{
+                    display: none;
+                    flex-direction: column;
+                    gap: 2px;
+
+                    button{
+                        width: 20px;
+                        height: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 0;
+                        border: 0;
+                        border-radius: 4px;
+                        transition: background .3s;
+                        cursor: pointer;
+
+                        &.validationChange{
+                            background: #00D72F;
+                            
+                            &:hover{
+                                background: #2df358;
+                            }
+                        }
+
+                        &.deleteChange{
+                            background: #D70000;
+                            
+                            &:hover{
+                                background: #fa2a2a;
+                            }
+                        }
+
+                        svg{
+                            height: 12px;
+                            width: auto;
+
+                            path{
+                                fill: white;
+                            }
+                        }
+                    }
+                }
+
+                .visual-balance{
+                    position: absolute;
+                    width: 16px;
+                    height: 100%;
+                    top: 0;
+                    right: 0;
+
+                    &.valid{
+                        background: #BBDCBA;
+                    }
+
+                    &.mid{
+                        background: #DCD2BA;
+                    }
+
+                    &.invalid{
+                        background: #DCBABA;
+                    }
+
+                    &.holding{
+                        background: #E7E7E7;
+                    }
+                }
+
+                &.changeButtonsActive{
+                    img{
+                        display: none;
+                    }
+
+                    .changeButtons{
+                        display: flex;
+                    }
+                }
+            }
+
+            // ACTIONS
+            .item-actions{
+                box-sizing: border-box;
+
+                &-wrapper{
+                    display: flex;
+                    align-items: stretch;
+                    justify-content: space-between;
+                }
+
+                &-infos{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    padding: 20px 0 20px 20px;
+
+                    & > div{
+                        & + div{
+                            margin-top: 24px;
+                        }
+                    }
+
+                    p{
+                        margin: 0;
+
+                        &.cat{
+                            font-size: 16px;
+                        }
+
+                        &.res{
+                            font-size: 18px;
+                            font-weight: 600;
+                        }
+                    }
+                }
+
+                &-buttons{
+                    flex-shrink: 0;
+
+                    &-wrapper{
+                        display: flex;
+                        flex-direction: column;
+                        height: 100%;
+
+                        button{
+                            flex-grow: 1;
+                            padding: 0;
+                            width: fit-content;
+                            position: relative;
+                            width: 64px;
+                            border-radius: 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            transition: background .3s;
+                            cursor: pointer;
+                            border: none;
+                            
+                            &.craft{
+                                border-left: 4px solid white;
+                                border-bottom: 2px solid white;
+                                background: #F29C06;
+                                
+                                &:hover{
+                                    background: #f8bb53;
+                                }
+                            }
+                            
+                            &.delete{
+                                border-left: 4px solid white;
+                                border-top: 2px solid white;
+                                border-bottom: 2px solid white;
+                                background: #F29C06;
+                                
+                                &:hover{
+                                    background: #f8bb53;
+                                }
+                            }
+                            
+                            &.onsale{
+                                border-left: 4px solid white;
+                                border-top: 2px solid white;
+
+                                &.selling{
+                                    background: #00D72F;
+                                    
+                                    &:hover{
+                                        background: #2df358;
+                                    }
+                                }
+
+                                &.notSelling{
+                                    background: #D70000;
+                                    
+                                    &:hover{
+                                        background: #fa2a2a;
+                                    }
+                                }
+                            }
+
+                            div{
+                                height: 100%;
+                                aspect-ratio: 1 / 1;
+                            }
+
+                            svg{
+                                height: 40px;
+                                width: auto;
+                                
+                                path{
+                                    fill: white;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
