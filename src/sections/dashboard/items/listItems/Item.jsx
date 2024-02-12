@@ -7,9 +7,10 @@ export default function Item({itemData}) {
     const [price, setPrice] = useState(0)
     const [benef, setBenef] = useState(false)
     const [benefRatio, setBenefRatio] = useState(false)
-    const [craftPrice, setCraftPrice] = useState(itemData.craft)
+    const [craftPrice, setCraftPrice] = useState(0)
     const [onSale, setOnSale] = useState(false)
-    const [changeButtons, setChangeButtons] = useState(false)
+    const [changeButtonsPrice, setChangeButtonsPrice] = useState(false)
+    const [changeButtonsCraft, setChangeButtonsCraft] = useState(false)
     const [visualBalance, setVisualBalance] = useState("holding")
 
     const works = ["Cordonnier", "Tailleur", "Sculpteur", "Bijoutier"]
@@ -20,52 +21,104 @@ export default function Item({itemData}) {
         ["Anneau", "Amulette"],
     ]
 
-    function handlePricesChange(e){
-        var newPrice = e.target.value
-
-        if( newPrice != 0 ){
-            var newBenef = parseInt(newPrice - craftPrice - (newPrice * 0.02))
-            var newBenefRatio = ((newPrice / craftPrice * 100) - 100).toFixed(2)
+    function handlePricesChange(e, handle){
+        if(handle === "price"){
+            var newPrice = e.target.value
+            setChangeButtonsPrice(true)
     
-            setPrice(newPrice)
-            setBenef(newBenef)
-            setBenefRatio(newBenefRatio)
-            setChangeButtons(true)
-    
-            if(benefRatio){
-                if(newPrice <= 100000){
-                    if(newBenefRatio <= 50){
-                        setVisualBalance("invalid")
+            if( newPrice != 0 && craftPrice != 0){
+                var newBenef = parseInt(newPrice - craftPrice - (newPrice * 0.02))
+                var newBenefRatio = ((newPrice / craftPrice * 100) - 100).toFixed(2)
+        
+                setPrice(newPrice)
+                setBenef(newBenef)
+                setBenefRatio(newBenefRatio)
+        
+                if(benefRatio){
+                    if(newPrice <= 100000){
+                        if(newBenefRatio <= 50){
+                            setVisualBalance("invalid")
+                        }
+                        else if(newBenefRatio > 50 && newBenefRatio <= 100){
+                            setVisualBalance("mid")
+                        }
+                        else{
+                            setVisualBalance("valid")
+                        }
                     }
-                    else if(newBenefRatio > 50 && newBenefRatio <= 100){
-                        setVisualBalance("mid")
-                    }
-                    else{
-                        setVisualBalance("valid")
-                    }
-                }
-                else if(newPrice > 100000 && newPrice <= 5000000 ){
-                    if(newBenefRatio <= 35){
-                        setVisualBalance("invalid")
-                    }
-                    else if(newBenefRatio > 35 && newBenefRatio <= 75){
-                        setVisualBalance("mid")
-                    }
-                    else{
-                        setVisualBalance("valid")
+                    else if(newPrice > 100000 && newPrice <= 5000000 ){
+                        if(newBenefRatio <= 35){
+                            setVisualBalance("invalid")
+                        }
+                        else if(newBenefRatio > 35 && newBenefRatio <= 75){
+                            setVisualBalance("mid")
+                        }
+                        else{
+                            setVisualBalance("valid")
+                        }
                     }
                 }
             }
+            else{
+                setPrice(newPrice)
+                setBenef(false)
+                setBenefRatio(false)
+                setVisualBalance("holding")
+            }
         }
-        else{
-            setBenef(false)
-            setBenefRatio(false)
-            setVisualBalance("holding")
+        else if(handle === "craft"){
+            var newCraft = e.target.value
+            setChangeButtonsCraft(true)
+    
+            if( newCraft != 0 && price != 0){
+                var newBenef = parseInt(price - newCraft - (price * 0.02))
+                var newBenefRatio = ((price / newCraft * 100) - 100).toFixed(2)
+        
+                setCraftPrice(newCraft)
+                setBenef(newBenef)
+                setBenefRatio(newBenefRatio)
+        
+                if(benefRatio){
+                    if(price <= 100000){
+                        if(newBenefRatio <= 50){
+                            setVisualBalance("invalid")
+                        }
+                        else if(newBenefRatio > 50 && newBenefRatio <= 100){
+                            setVisualBalance("mid")
+                        }
+                        else{
+                            setVisualBalance("valid")
+                        }
+                    }
+                    else if(price > 100000 && price <= 5000000 ){
+                        if(newBenefRatio <= 35){
+                            setVisualBalance("invalid")
+                        }
+                        else if(newBenefRatio > 35 && newBenefRatio <= 75){
+                            setVisualBalance("mid")
+                        }
+                        else{
+                            setVisualBalance("valid")
+                        }
+                    }
+                }
+            }
+            else{
+                setCraftPrice(newCraft)
+                setBenef(false)
+                setBenefRatio(false)
+                setVisualBalance("holding")
+            }
         }
     }
 
-    function handleChangeButton(change){
-        setChangeButtons(false)
+    function handleChangeButton(type, change){
+        if(type === 1){
+            setChangeButtonsPrice(false)
+        }
+        else if(type === 2){
+            setChangeButtonsCraft(false)
+        }
     }
 
     function numberWithSpaces(x) {
@@ -86,17 +139,25 @@ export default function Item({itemData}) {
                     <img src={`/public/items/item_${itemData.img}.png`} alt={itemData.name} />
                     <p>{itemData.name}</p>
                 </li>
-                <li className={`item-input ${changeButtons && "changeButtonsActive"}`}>
-                    <input type="number" onChange={handlePricesChange} min={0} placeholder="0"/>
+                <li className={`item-input ${changeButtonsPrice && "changeButtonsActive"}`}>
+                    <input type="number" onChange={e => handlePricesChange(e, "price")} min={0} placeholder="0"/>
                     <img src={kamas} />
                     <div className="changeButtons">
-                        <button onClick={() => handleChangeButton(true)} className="validationChange"><Icon icon="ic:baseline-check" /></button>
-                        <button onClick={() => handleChangeButton(true)} className="deleteChange"><Icon icon="la:times" /></button>
+                        <button onClick={() => handleChangeButton(1, true)} className="validationChange"><Icon icon="ic:baseline-check" /></button>
+                        <button onClick={() => handleChangeButton(1, false)} className="deleteChange"><Icon icon="la:times" /></button>
                     </div>
                 </li>
-                <li className="item-result">
+                {/* <li className="item-result">
                     <span>{numberWithSpaces(craftPrice)}</span>
                     <img src={kamas} />
+                </li> */}
+                <li className={`item-input ${changeButtonsCraft && "changeButtonsActive"}`}>
+                    <input type="number" onChange={e => handlePricesChange(e, "craft")} min={0} placeholder="0"/>
+                    <img src={kamas} />
+                    <div className="changeButtons">
+                        <button onClick={() => handleChangeButton(2, true)} className="validationChange"><Icon icon="ic:baseline-check" /></button>
+                        <button onClick={() => handleChangeButton(2, false)} className="deleteChange"><Icon icon="la:times" /></button>
+                    </div>
                 </li>
                 <li className="item-result">
                     <span>{benef ? numberWithSpaces(benef) : "-"}</span>
