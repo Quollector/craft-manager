@@ -1,14 +1,27 @@
-import Header from "./sections/header/Header"
-import Menu from "./sections/menu/Menu"
-import Dashboard from "./sections/dashboard/Dashboard"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './Components/Header/Header';
+import Dashboard from "./Pages/Home/Dashboard/Dashboard"
+import ItemsList from './Pages/ItemsList/ItemsList';
+import Ressources from './Pages/Ressources/Ressources';
+import Cart from './Pages/Cart/Cart';
+import Options from './Pages/Options/Options';
 
 function App() {
   return (
-    <div className="main-content">
+    <>
       <Header />
-      <Menu />
-      <Dashboard />
-    </div>
+      <div className="main-content">
+        <Router>
+          <Routes>
+            <Route path="/" element={<Dashboard />}/>
+            <Route path="/items" element={<ItemsList />}/>
+            <Route path="/ressources" element={<Ressources />}/>
+            <Route path="/cart" element={<Cart />}/>
+            <Route path="/options" element={<Options />}/>
+          </Routes>
+        </Router>
+      </div>
+    </>
   )
 }
 

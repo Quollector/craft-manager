@@ -4,11 +4,11 @@ import MenuItem from "./MenuItems"
 function Main() {
 
     const menuItems = [
-        {id: nanoid(8), content: "Tableau"},
-        {id: nanoid(8), content: "Items"},
-        {id: nanoid(8), content: "Ressources"},
-        {id: nanoid(8), content: "Panier"},
-        {id: nanoid(8), content: "Options"},
+        {id: nanoid(8), content: "Tableau", to: "/"},
+        {id: nanoid(8), content: "Items", to: "/items"},
+        {id: nanoid(8), content: "Ressources", to: "/ressources"},
+        {id: nanoid(8), content: "Panier", to: "/cart"},
+        {id: nanoid(8), content: "Options", to: "/options"},
     ]
 
     return (

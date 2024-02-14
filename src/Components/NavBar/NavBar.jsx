@@ -1,8 +1,8 @@
 import "./menu.css"
-import Main from "./items/Main"
-import Resume from "./items/Resume"
+import Main from "./Items/Main"
+import Resume from "./Items/Resume"
 
-function Menu() {
+function NavBar() {
   return (
     <nav>
         <div className="nav-wrapper">
@@ -12,4 +12,4 @@ function Menu() {
     </nav>
   )
 }
-export default Menu
+export default NavBar

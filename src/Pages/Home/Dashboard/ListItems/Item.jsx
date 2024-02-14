@@ -9,9 +9,9 @@ export default function Item({itemData}) {
     const [benefRatio, setBenefRatio] = useState(false)
     const [craftPrice, setCraftPrice] = useState(0)
     const [onSale, setOnSale] = useState(false)
-    const [changeButtonsPrice, setChangeButtonsPrice] = useState(false)
-    const [changeButtonsCraft, setChangeButtonsCraft] = useState(false)
     const [visualBalance, setVisualBalance] = useState("holding")
+
+    const saveButton = useRef()
 
     const works = ["Cordonnier", "Tailleur", "Sculpteur", "Bijoutier"]
     const cat = [
@@ -22,13 +22,14 @@ export default function Item({itemData}) {
     ]
 
     function handlePricesChange(e, handle){
+        saveButton.current.classList.add("active")
+
         if(handle === "price"){
             var newPrice = e.target.value
-            setChangeButtonsPrice(true)
     
             if( newPrice != 0 && craftPrice != 0){
                 var newBenef = parseInt(newPrice - craftPrice - (newPrice * 0.02))
-                var newBenefRatio = ((newPrice / craftPrice * 100) - 100).toFixed(2)
+                var newBenefRatio = (((newPrice - (newPrice * 0.02)) / craftPrice * 100) - 100).toFixed(2)
         
                 setPrice(newPrice)
                 setBenef(newBenef)
@@ -68,11 +69,10 @@ export default function Item({itemData}) {
         }
         else if(handle === "craft"){
             var newCraft = e.target.value
-            setChangeButtonsCraft(true)
     
             if( newCraft != 0 && price != 0){
                 var newBenef = parseInt(price - newCraft - (price * 0.02))
-                var newBenefRatio = ((price / newCraft * 100) - 100).toFixed(2)
+                var newBenefRatio = (((price - (price * 0.02)) / newCraft * 100) - 100).toFixed(2)
         
                 setCraftPrice(newCraft)
                 setBenef(newBenef)
@@ -112,13 +112,8 @@ export default function Item({itemData}) {
         }
     }
 
-    function handleChangeButton(type, change){
-        if(type === 1){
-            setChangeButtonsPrice(false)
-        }
-        else if(type === 2){
-            setChangeButtonsCraft(false)
-        }
+    function handleSaveItem(){
+        saveButton.current.classList.remove('active')
     }
 
     function numberWithSpaces(x) {
@@ -135,29 +130,21 @@ export default function Item({itemData}) {
         <li>
             <ul className="item-datas roboto">
                 <li className="item-base">
-                    <div className="flasher" style={{background: `#${onSale ? "00D72F" : "D70000"}`}}></div>
+                    <div className={`flasher${onSale ? " onsale" : ""}`}></div>
                     <img src={`/public/items/item_${itemData.img}.png`} alt={itemData.name} />
                     <p>{itemData.name}</p>
                 </li>
-                <li className={`item-input ${changeButtonsPrice && "changeButtonsActive"}`}>
+                <li className="item-input">
                     <input type="number" onChange={e => handlePricesChange(e, "price")} min={0} placeholder="0"/>
                     <img src={kamas} />
-                    <div className="changeButtons">
-                        <button onClick={() => handleChangeButton(1, true)} className="validationChange"><Icon icon="ic:baseline-check" /></button>
-                        <button onClick={() => handleChangeButton(1, false)} className="deleteChange"><Icon icon="la:times" /></button>
-                    </div>
                 </li>
                 {/* <li className="item-result">
                     <span>{numberWithSpaces(craftPrice)}</span>
                     <img src={kamas} />
                 </li> */}
-                <li className={`item-input ${changeButtonsCraft && "changeButtonsActive"}`}>
+                <li className="item-input">
                     <input type="number" onChange={e => handlePricesChange(e, "craft")} min={0} placeholder="0"/>
                     <img src={kamas} />
-                    <div className="changeButtons">
-                        <button onClick={() => handleChangeButton(2, true)} className="validationChange"><Icon icon="ic:baseline-check" /></button>
-                        <button onClick={() => handleChangeButton(2, false)} className="deleteChange"><Icon icon="la:times" /></button>
-                    </div>
                 </li>
                 <li className="item-result">
                     <span>{benef ? numberWithSpaces(benef) : "-"}</span>
@@ -186,6 +173,7 @@ export default function Item({itemData}) {
                         </div>
                         <div className="item-actions-buttons">
                             <div className="item-actions-buttons-wrapper">
+                                <button onClick={handleSaveItem} ref={saveButton} className="save"><Icon icon="material-symbols-light:save-outline" /></button>
                                 <button className="craft"><Icon icon="solar:sledgehammer-outline" /></button>
                                 <button className="delete"><Icon icon="fluent:delete-20-regular" /></button>
                                 <button onClick={() => setOnSale(!onSale)} className={`onsale ${onSale ? "selling" : "notSelling"}`}><Icon icon="healthicons:market-stall" /></button>

@@ -102,6 +102,11 @@
                     top: 12px;
                     left: 12px;
                     transition: background .3s;
+                    background: #E73920;
+
+                    &.onsale{
+                        background: #97A800;
+                    }
                 }
             }
 
@@ -161,15 +166,15 @@
                         cursor: pointer;
 
                         &.validationChange{
-                            background: #00D72F;
+                            background: #97A800;
                             
                             &:hover{
-                                background: #2df358;
+                                background: #b2c502;
                             }
                         }
 
                         &.deleteChange{
-                            background: #D70000;
+                            background: #E73920;
                             
                             &:hover{
                                 background: #fa2a2a;
@@ -280,17 +285,24 @@
                             cursor: pointer;
                             border: none;
                             
-                            &.craft{
+                            &.save{
                                 border-left: 4px solid white;
                                 border-bottom: 2px solid white;
-                                background: #F29C06;
-                                
-                                &:hover{
-                                    background: #f8bb53;
+                                background: #e7e7e7;
+                                pointer-events: none;
+
+                                &.active{
+                                    background: #97A800;
+                                    pointer-events: all;
+
+                                    &:hover{
+                                        background: #b2c502;
+                                    }
                                 }
+                                
                             }
                             
-                            &.delete{
+                            &.delete, &.craft{
                                 border-left: 4px solid white;
                                 border-top: 2px solid white;
                                 border-bottom: 2px solid white;
@@ -306,18 +318,18 @@
                                 border-top: 2px solid white;
 
                                 &.selling{
-                                    background: #00D72F;
+                                    background: #97A800;
                                     
                                     &:hover{
-                                        background: #2df358;
+                                        background: #b2c502;
                                     }
                                 }
 
                                 &.notSelling{
-                                    background: #D70000;
+                                    background: #E73920;
                                     
                                     &:hover{
-                                        background: #fa2a2a;
+                                        background: #f06853;
                                     }
                                 }
                             }

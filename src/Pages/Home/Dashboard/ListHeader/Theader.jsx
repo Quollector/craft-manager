@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid"
 import Tcells from "./Tcells"
 
-export default function Theader() {
+export default function ListHeader() {
 
     const theadItems = [
         {id: nanoid(8), content: "Item"},

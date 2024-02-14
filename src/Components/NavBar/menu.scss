@@ -1,0 +1,130 @@
+nav{
+    background: #000;
+    position: sticky;
+    top: 0;
+    z-index: 666;
+
+    .nav-wrapper{
+        padding: 14px 4vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    // MAIN
+    .nav-main{
+        ul{
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        li{
+            padding: 0 18px 0 24px;
+            list-style-type: none;
+            position: relative;
+
+            &:first-child{
+                padding-left: 0;
+            }
+
+            &:not(:last-child){
+                &::after{
+                    position: absolute;
+                    content: '';
+                    width: 2px;
+                    height: 100%;
+                    background: #333;
+                    top: 0;
+                    right: -1px;
+                }
+            }
+
+            & > a{
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                color: #FFF;
+                transition: color .3s;
+                text-decoration: none;
+
+                &:hover{
+                    color: #F29C06;
+                }
+            }
+
+            span{
+                font-size: 24px;
+                margin-right: 4px;
+            }
+
+            svg{
+                height: 16px;
+                width: auto;
+                transform: translateY(-2px);
+
+                path{
+                    fill: #97A800;
+                }
+            }
+        }
+    }
+
+    // RESUME
+    .nav-resume{
+        ul{
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        li{
+            padding: 0 12px;
+            list-style-type: none;
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            &:first-child{
+                padding-left: 0;
+            }
+
+            &:not(:last-child){
+                &::after{
+                    position: absolute;
+                    content: '';
+                    width: 2px;
+                    height: 100%;
+                    background: #333;
+                    top: 0;
+                    right: -1px;
+                }
+            }
+
+            span{
+                font-size: 20px;
+                color: #FFF;
+                margin-right: 2px;
+            }
+
+            img{
+                display: block;
+                height: 16px;
+                width: auto;
+                transform: translateY(-1px);
+            }
+
+            svg{
+                height: 16px;
+                width: auto;
+                transform: translateY(-2px);
+
+                path{
+                    fill: #97A800;
+                }
+            }
+        }
+    }
+}
