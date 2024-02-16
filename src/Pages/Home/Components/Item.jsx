@@ -1,14 +1,14 @@
-import kamas from "../../../../assets/kamas.svg"
-import pourcent from "../../../../assets/pourcent-b.svg"
+import kamas from "../../../assets/kamas.svg"
+import pourcent from "../../../assets/pourcent-b.svg"
 import { Icon } from '@iconify/react';
-import { useState, useRef } from "react"
+import { useState, useRef, memo } from "react"
 
-export default function Item({itemData}) {
+export default memo(function Item({itemData}) {
     const [price, setPrice] = useState(0)
     const [benef, setBenef] = useState(false)
     const [benefRatio, setBenefRatio] = useState(false)
     const [craftPrice, setCraftPrice] = useState(0)
-    const [onSale, setOnSale] = useState(false)
+    const [onSale, setOnSale] = useState(itemData.onsale)
     const [visualBalance, setVisualBalance] = useState("holding")
 
     const saveButton = useRef()
@@ -21,6 +21,7 @@ export default function Item({itemData}) {
         ["Anneau", "Amulette"],
     ]
 
+    // change benef and ratio on input change
     function handlePricesChange(e, handle){
         saveButton.current.classList.add("active")
 
@@ -112,10 +113,18 @@ export default function Item({itemData}) {
         }
     }
 
+    // Save items
     function handleSaveItem(){
         saveButton.current.classList.remove('active')
+
+        alert("Item sauvegardé")
     }
 
+    function deleteItem(){
+        var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cet item de votre liste de vente ?", "Supprimer l'item")
+    }
+
+    // Format numbers
     function numberWithSpaces(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
@@ -131,7 +140,7 @@ export default function Item({itemData}) {
             <ul className="item-datas roboto">
                 <li className="item-base">
                     <div className={`flasher${onSale ? " onsale" : ""}`}></div>
-                    <img src={`/public/items/item_${itemData.img}.png`} alt={itemData.name} />
+                    <img src={`/items/item_${itemData.img}.png`} alt={itemData.name} />
                     <p>{itemData.name}</p>
                 </li>
                 <li className="item-input">
@@ -175,7 +184,7 @@ export default function Item({itemData}) {
                             <div className="item-actions-buttons-wrapper">
                                 <button onClick={handleSaveItem} ref={saveButton} className="save"><Icon icon="material-symbols-light:save-outline" /></button>
                                 <button className="craft"><Icon icon="solar:sledgehammer-outline" /></button>
-                                <button className="delete"><Icon icon="fluent:delete-20-regular" /></button>
+                                <button onClick={deleteItem} className="delete"><Icon icon="fluent:delete-20-regular" /></button>
                                 <button onClick={() => setOnSale(!onSale)} className={`onsale ${onSale ? "selling" : "notSelling"}`}><Icon icon="healthicons:market-stall" /></button>
                             </div>
                         </div>
@@ -184,4 +193,4 @@ export default function Item({itemData}) {
             </ul>
         </li>
     )
-}
+})

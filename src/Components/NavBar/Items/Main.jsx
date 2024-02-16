@@ -6,7 +6,7 @@ function Main() {
     const menuItems = [
         {id: nanoid(8), content: "Tableau", to: "/"},
         {id: nanoid(8), content: "Items", to: "/items"},
-        {id: nanoid(8), content: "Ressources", to: "/ressources"},
+        {id: nanoid(8), content: "Ressources", to: "/resources"},
         {id: nanoid(8), content: "Panier", to: "/cart"},
         {id: nanoid(8), content: "Options", to: "/options"},
     ]

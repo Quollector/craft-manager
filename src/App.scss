@@ -1,0 +1,46 @@
+// COMPONENTS
+// SEARCH TOOLS
+.search-tools{
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .search-tool{
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #F2F2F2;
+        padding: 0 12px;
+        width: 450px;
+
+        input{
+            flex-grow: 1;
+            font-size: 20px;
+            background: none;
+            border: none;
+
+            &:focus{
+                border: none;
+                outline: none;
+            }
+        }
+
+        svg{
+            flex-shrink: 0;
+            height: 24px;
+            width: auto;
+
+            path{
+                stroke: #F29C06;
+            }
+        }
+    }
+}
+
+// GENERAL
+*{
+    box-sizing: border-box;
+}
