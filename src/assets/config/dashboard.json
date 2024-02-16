@@ -1,0 +1,10 @@
+{
+    "thead": [
+        {"content": "Item"},
+        {"content": "Prix de vente"},
+        {"content": "Prix de craft"},
+        {"content": "Bénéfice"},
+        {"content": "Taux de bénéfice"},
+        {"content": "Informations / Actions"}
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "menus":[
+        {
+            "content": "Tableau",
+            "to": "/"
+        },
+        {
+            "content": "Items",
+            "to": "/items"
+        },
+        {
+            "content": "Ressources",
+            "to": "/resources"
+        },
+        {
+            "content": "Panier",
+            "to": "/cart"
+        },
+        {
+            "content": "Options",
+            "to": "/options"
+        }
+    ]
+}

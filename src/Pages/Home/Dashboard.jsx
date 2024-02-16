@@ -1,23 +1,13 @@
 import { useState, useEffect } from "react"
 import { nanoid } from "nanoid"
-import { Icon } from '@iconify/react';
 import NavBar from "../../Components/NavBar/NavBar"
 import SearchTool from "../../Components/Components/SearchTool";
 import Tcells from "./Components/Tcells"
 import Item from "./Components/Item"
+import json from "../../assets/config/dashboard.json"
 import "./dashboard.css"
 
 function Dashboard() {
-
-  const theadItems = [
-      {id: nanoid(8), content: "Item"},
-      {id: nanoid(8), content: "Prix de vente"},
-      {id: nanoid(8), content: "Prix de craft"},
-      {id: nanoid(8), content: "Bénéfice"},
-      {id: nanoid(8), content: "Taux de bénéfice"},
-      {id: nanoid(8), content: "Informations / Actions"},
-  ]
-
   const listItemsRaw = [
       {id: nanoid(8), name: "Bottes d'apprentissage", img: 1, craft: 16555, work: 0, cat: 0, level: 50, onsale: 1},
       {id: nanoid(8), name: "Bottes d'apprentissage légères", img: 1, craft: 125000, work: 0, cat: 0, level: 50, onsale: 0},
@@ -62,8 +52,8 @@ function Dashboard() {
 
         {/* List Header */}
         <ul className="dash-theader">
-            {theadItems.map(item => (
-                <Tcells key={item.id} itemData={item} />
+            {json.thead.map(item => (
+                <Tcells key={nanoid(8)} itemData={item} />
             ))}
         </ul>
 
