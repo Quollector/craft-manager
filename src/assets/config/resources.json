@@ -1,0 +1,9 @@
+{
+    "resources": [
+        {"name": "Kolérat Mort", "price": 1600, "img": "1"},
+        {"name": "Cuir de Cuirboule", "price": 1600, "img": "2"},
+        {"name": "Hélice", "price": 1600, "img": "3"},
+        {"name": "Salikrone", "price": 1600, "img": "4"},
+        {"name": "Pile Steamer", "price": 1600, "img": "5"}
+    ]
+}

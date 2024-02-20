@@ -1,0 +1,14 @@
+{
+    "craftsmanship": [
+        "Cordonnier",
+        "Tailleur",
+        "Sculpteur",
+        "Bijoutier"
+    ],
+    "craftCategories": [
+        ["Bottes", "Ceinture"],
+        ["Coiffe", "Cape", "Sac"],
+        ["Baguette", "Bâton", "Arc"],
+        ["Anneau", "Amulette"]
+    ]
+}

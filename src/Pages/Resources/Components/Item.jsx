@@ -1,5 +1,4 @@
 import kamas from "../../../assets/kamas.svg"
-import pourcent from "../../../assets/pourcent-b.svg"
 import { Icon } from '@iconify/react';
 import { useState } from "react"
 

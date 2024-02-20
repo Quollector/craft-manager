@@ -15,10 +15,6 @@
         {
             "content": "Panier",
             "to": "/cart"
-        },
-        {
-            "content": "Options",
-            "to": "/options"
         }
     ]
 }

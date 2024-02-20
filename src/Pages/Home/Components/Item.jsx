@@ -1,115 +1,39 @@
+import { useState, useRef, useEffect } from "react"
 import kamas from "../../../assets/kamas.svg"
 import pourcent from "../../../assets/pourcent-b.svg"
 import { Icon } from '@iconify/react';
-import { useState, useRef, memo } from "react"
+import craftNames from "../../../assets/config/craftswork.json"
 
-export default memo(function Item({itemData}) {
-    const [price, setPrice] = useState(0)
+export default function Item({itemData}) {
+    const [price, setPrice] = useState(30000)
     const [benef, setBenef] = useState(false)
     const [benefRatio, setBenefRatio] = useState(false)
-    const [craftPrice, setCraftPrice] = useState(0)
+    const [craftPrice, setCraftPrice] = useState(15000)
     const [onSale, setOnSale] = useState(itemData.onsale)
     const [visualBalance, setVisualBalance] = useState("holding")
+    const [firstView, setFirstView] = useState(true)
 
     const saveButton = useRef()
 
-    const works = ["Cordonnier", "Tailleur", "Sculpteur", "Bijoutier"]
-    const cat = [
-        ["Bottes", "Ceinture"],
-        ["Coiffe", "Cape", "Sac"],
-        ["Baguette", "Bâton", "Arc"],
-        ["Anneau", "Amulette"],
-    ]
-
     // change benef and ratio on input change
-    function handlePricesChange(e, handle){
-        saveButton.current.classList.add("active")
+    useEffect(handlePricesChange, [price, craftPrice])
 
-        if(handle === "price"){
-            var newPrice = e.target.value
-    
-            if( newPrice != 0 && craftPrice != 0){
-                var newBenef = parseInt(newPrice - craftPrice - (newPrice * 0.02))
-                var newBenefRatio = (((newPrice - (newPrice * 0.02)) / craftPrice * 100) - 100).toFixed(2)
-        
-                setPrice(newPrice)
-                setBenef(newBenef)
-                setBenefRatio(newBenefRatio)
-        
-                if(benefRatio){
-                    if(newPrice <= 100000){
-                        if(newBenefRatio <= 50){
-                            setVisualBalance("invalid")
-                        }
-                        else if(newBenefRatio > 50 && newBenefRatio <= 100){
-                            setVisualBalance("mid")
-                        }
-                        else{
-                            setVisualBalance("valid")
-                        }
-                    }
-                    else if(newPrice > 100000 && newPrice <= 5000000 ){
-                        if(newBenefRatio <= 35){
-                            setVisualBalance("invalid")
-                        }
-                        else if(newBenefRatio > 35 && newBenefRatio <= 75){
-                            setVisualBalance("mid")
-                        }
-                        else{
-                            setVisualBalance("valid")
-                        }
-                    }
-                }
-            }
-            else{
-                setPrice(newPrice)
-                setBenef(false)
-                setBenefRatio(false)
-                setVisualBalance("holding")
-            }
+    function handlePricesChange(){
+        if(!firstView){
+            saveButton.current.classList.add("active")
         }
-        else if(handle === "craft"){
-            var newCraft = e.target.value
-    
-            if( newCraft != 0 && price != 0){
-                var newBenef = parseInt(price - newCraft - (price * 0.02))
-                var newBenefRatio = (((price - (price * 0.02)) / newCraft * 100) - 100).toFixed(2)
+        setFirstView(false)
         
-                setCraftPrice(newCraft)
-                setBenef(newBenef)
-                setBenefRatio(newBenefRatio)
-        
-                if(benefRatio){
-                    if(price <= 100000){
-                        if(newBenefRatio <= 50){
-                            setVisualBalance("invalid")
-                        }
-                        else if(newBenefRatio > 50 && newBenefRatio <= 100){
-                            setVisualBalance("mid")
-                        }
-                        else{
-                            setVisualBalance("valid")
-                        }
-                    }
-                    else if(price > 100000 && price <= 5000000 ){
-                        if(newBenefRatio <= 35){
-                            setVisualBalance("invalid")
-                        }
-                        else if(newBenefRatio > 35 && newBenefRatio <= 75){
-                            setVisualBalance("mid")
-                        }
-                        else{
-                            setVisualBalance("valid")
-                        }
-                    }
-                }
-            }
-            else{
-                setCraftPrice(newCraft)
-                setBenef(false)
-                setBenefRatio(false)
-                setVisualBalance("holding")
-            }
+        if( price != 0 && craftPrice != 0){
+            var newBenef = parseInt(price - craftPrice - (price * 0.02))
+            var newBenefRatio = (((price - (price * 0.02)) / craftPrice * 100) - 100).toFixed(2)
+
+            setBenef(newBenef)
+            setBenefRatio(newBenefRatio)
+        }
+        else{
+            setBenef(false)
+            setBenefRatio(false)
         }
     }
 
@@ -120,20 +44,53 @@ export default memo(function Item({itemData}) {
         alert("Item sauvegardé")
     }
 
+    // Delete items
     function deleteItem(){
         var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cet item de votre liste de vente ?", "Supprimer l'item")
     }
 
     // Format numbers
-    function numberWithSpaces(x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    function formatNumbers(value, type) {
+        if(type==="int"){
+            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        }
+        else if(type==="float"){
+            var parts = value.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+            return parts.join(".");
+        }
     }
 
-    function floatNumberWithSpaces(x) {
-        var parts = x.toString().split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-        return parts.join(".");
-    }
+    // Visual Balance Color
+    useEffect(() => {
+        if(price != 0 && craftPrice != 0 && benefRatio){
+            if(price <= 100000){
+                if(benefRatio <= 50){
+                    setVisualBalance("invalid")
+                }
+                else if(benefRatio > 50 && benefRatio <= 100){
+                    setVisualBalance("mid")
+                }
+                else{
+                    setVisualBalance("valid")
+                }
+            }
+            else if(price > 100000 && price <= 5000000 ){
+                if(benefRatio <= 35){
+                    setVisualBalance("invalid")
+                }
+                else if(benefRatio > 35 && benefRatio <= 75){
+                    setVisualBalance("mid")
+                }
+                else{
+                    setVisualBalance("valid")
+                }
+            }
+        }
+        else{
+            setVisualBalance("holding")
+        }
+    }, [benefRatio])
 
     return (
         <li>
@@ -144,23 +101,23 @@ export default memo(function Item({itemData}) {
                     <p>{itemData.name}</p>
                 </li>
                 <li className="item-input">
-                    <input type="number" onChange={e => handlePricesChange(e, "price")} min={0} placeholder="0"/>
+                    <input value={price ? price : 0} type="number" onChange={e => setPrice(e.target.value)} min={0} placeholder="0"/>
                     <img src={kamas} />
                 </li>
                 {/* <li className="item-result">
-                    <span>{numberWithSpaces(craftPrice)}</span>
+                    <span>{formatNumbers(craftPrice, "int")}</span>
                     <img src={kamas} />
                 </li> */}
                 <li className="item-input">
-                    <input type="number" onChange={e => handlePricesChange(e, "craft")} min={0} placeholder="0"/>
+                    <input value={craftPrice ? craftPrice : 0} type="number" onChange={e => setCraftPrice(e.target.value)} min={0} placeholder="0"/>
                     <img src={kamas} />
                 </li>
                 <li className="item-result">
-                    <span>{benef ? numberWithSpaces(benef) : "-"}</span>
+                    <span>{benef ? formatNumbers(benef, "int") : "-"}</span>
                     <img src={kamas} />
                 </li>
                 <li className="item-result">
-                    <span>{benefRatio ? floatNumberWithSpaces(benefRatio) : "-"}</span>
+                    <span>{benefRatio ? formatNumbers(benefRatio, "float") : "-"}</span>
                     <img src={pourcent} />
                     <div className={`visual-balance ${visualBalance}`}></div>
                 </li>
@@ -169,11 +126,11 @@ export default memo(function Item({itemData}) {
                         <div className="item-actions-infos">
                             <div>
                                 <p className="cat">Métier:</p>
-                                <p className="res">{works[itemData.work]}</p>
+                                <p className="res">{craftNames["craftsmanship"][itemData.work]}</p>
                             </div>
                             <div>
                                 <p className="cat">Catégorie:</p>
-                                <p className="res">{cat[itemData.work][itemData.cat]}</p>
+                                <p className="res">{craftNames["craftCategories"][itemData.work][itemData.cat]}</p>
                             </div>
                             <div>
                                 <p className="cat">Niveau</p>
@@ -193,4 +150,4 @@ export default memo(function Item({itemData}) {
             </ul>
         </li>
     )
-})
+}
