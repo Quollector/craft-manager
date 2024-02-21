@@ -11,10 +11,6 @@
         {
             "content": "Ressources",
             "to": "/resources"
-        },
-        {
-            "content": "Panier",
-            "to": "/cart"
         }
     ]
 }

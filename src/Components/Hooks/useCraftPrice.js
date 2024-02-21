@@ -3,7 +3,8 @@ import listResourcesRaw from "../../assets/config/resources.json"
 
 export default function useCraftPrice(itemData) {
 
-    const [craftPrice, setcraftPrice] = useState(0)
+    const [craftPriceSolo, setcraftPriceSolo] = useState(0)
+    const [craftPriceTotal, setcraftPriceTotal] = useState(0)
 
     useEffect(() => {
         let totalPrice = 0
@@ -16,8 +17,9 @@ export default function useCraftPrice(itemData) {
             })
         })
 
-        setcraftPrice(totalPrice)
-    }, [craftPrice])
+        setcraftPriceSolo(totalPrice)
+        setcraftPriceTotal(totalPrice * itemData.qty)
+    }, [craftPriceSolo])
 
-    return craftPrice
+    return {craftPriceSolo, craftPriceTotal}
 }

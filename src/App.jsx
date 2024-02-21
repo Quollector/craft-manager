@@ -17,8 +17,8 @@ function App() {
             <Route path="/" element={<Dashboard />}/>
             <Route path="/items" element={<ItemsList />}/>
             <Route path="/resources" element={<Resources />}/>
-            <Route path="/cart" element={<Cart />}/>
-            <Route path="/options" element={<Options />}/>
+            {/* <Route path="/cart" element={<Cart />}/>
+            <Route path="/options" element={<Options />}/> */}
           </Routes>
         </Router>
       </div>

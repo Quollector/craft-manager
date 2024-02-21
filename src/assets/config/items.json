@@ -3,6 +3,7 @@
         {
             "id": 1, 
             "name": "Bottes d'apprentissage", 
+            "qty": 1,
             "img": 1, 
             "work": 0, 
             "cat": 0, 
@@ -17,6 +18,7 @@
         {
             "id": 2, 
             "name": "Bottes d'apprentissage légères", 
+            "qty": 2,
             "img": 1, 
             "work": 0, 
             "cat": 1, 

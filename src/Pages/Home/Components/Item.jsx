@@ -7,9 +7,12 @@ import useCraftPrice from "../../../Components/Hooks/useCraftPrice";
 
 export default function Item({itemData}) {
     const [price, setPrice] = useState(30000)
+    const [qty, setQty] = useState(itemData.qty)
     const [benef, setBenef] = useState(false)
+    const [benefTotal, setBenefTotal] = useState(false)
     const [benefRatio, setBenefRatio] = useState(false)
-    const craftPrice = useCraftPrice(itemData)
+    const {craftPriceSolo, craftPriceTotal} = useCraftPrice(itemData)
+    const [craftPriceAll, setCraftPriceAll] = useState(false)
     const [onSale, setOnSale] = useState(itemData.onsale)
     const [visualBalance, setVisualBalance] = useState("holding")
     const [firstView, setFirstView] = useState(true)
@@ -17,7 +20,7 @@ export default function Item({itemData}) {
     const saveButton = useRef()
 
     // change benef and ratio on input change
-    useEffect(handlePricesChange, [price, craftPrice])
+    useEffect(handlePricesChange, [price, qty, craftPriceSolo])
     
     useEffect(() => { 
         if(!firstView){
@@ -28,15 +31,19 @@ export default function Item({itemData}) {
 
     function handlePricesChange(){
         
-        if( price != 0 && craftPrice != 0){
-            var newBenef = parseInt(price - craftPrice - (price * 0.02))
-            var newBenefRatio = (((price - (price * 0.02)) / craftPrice * 100) - 100).toFixed(2)
+        if( price != 0 && craftPriceSolo != 0 && qty != 0){
+            var newBenef = parseInt(price - craftPriceSolo - (price * 0.02))
+            var newBenefRatio = (((price - (price * 0.02)) / craftPriceSolo * 100) - 100).toFixed(2)
 
             setBenef(newBenef)
+            setCraftPriceAll(craftPriceSolo * qty)
+            setBenefTotal(newBenef * qty)
             setBenefRatio(newBenefRatio)
         }
         else{
             setBenef(false)
+            setCraftPriceAll(craftPriceSolo)
+            setBenefTotal(false)
             setBenefRatio(false)
         }
     }
@@ -67,7 +74,7 @@ export default function Item({itemData}) {
 
     // Visual Balance Color
     useEffect(() => {
-        if(price != 0 && craftPrice != 0 && benefRatio){
+        if(price != 0 && craftPriceSolo != 0 && qty != 0 && benefRatio){
             if(price <= 100000){
                 if(benefRatio <= 50){
                     setVisualBalance("invalid")
@@ -105,11 +112,14 @@ export default function Item({itemData}) {
                     <p>{itemData.name}</p>
                 </li>
                 <li className="item-input">
-                    <input value={price ? price : 0} type="number" onChange={e => setPrice(e.target.value)} min={0} placeholder="0"/>
+                    <input value={price ? price : 0} type="number" onChange={e => setPrice(e.target.value)} min={0} placeholder="0" className="textfield"/>
                     <img src={kamas} />
                 </li>
+                <li className="item-input">
+                    <input value={qty ? qty : 0} type="number" onChange={e => setQty(e.target.value)} min={0} placeholder="1"/>
+                </li>
                 <li className="item-result">
-                    <span>{formatNumbers(craftPrice, "int")}</span>
+                    <span>{formatNumbers(craftPriceSolo, "int")}</span>
                     <img src={kamas} />
                 </li>
                 <li className="item-result">
@@ -120,6 +130,14 @@ export default function Item({itemData}) {
                     <span>{benefRatio ? formatNumbers(benefRatio, "float") : "-"}</span>
                     <img src={pourcent} />
                     <div className={`visual-balance ${visualBalance}`}></div>
+                </li>
+                <li className="item-result">
+                    <span>{formatNumbers(craftPriceAll ? craftPriceAll : craftPriceTotal, "int")}</span>
+                    <img src={kamas} />
+                </li>
+                <li className="item-result">
+                    <span>{benefTotal ? formatNumbers(benefTotal, "int") : "-"}</span>
+                    <img src={kamas} />
                 </li>
                 <li className="item-actions">
                     <div className="item-actions-wrapper">

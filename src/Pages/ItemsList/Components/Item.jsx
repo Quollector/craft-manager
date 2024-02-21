@@ -5,7 +5,7 @@ import { useState } from "react"
 
 export default function Item({itemData}) {
 
-    const craftPrice = useCraftPrice(itemData)
+    const {craftPriceSolo, craftPriceTotal} = useCraftPrice(itemData)
     
     function editItemFn(){
     }
@@ -41,7 +41,7 @@ export default function Item({itemData}) {
                 <p>{itemData.name}</p>
             </div>
             <div className="item-price">
-                <p>{formatNumbers(craftPrice, "int")}</p>
+                <p>{formatNumbers(craftPriceSolo, "int")}</p>
                 <img src={kamas} />
             </div>
             <div className="item-btns">

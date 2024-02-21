@@ -2,9 +2,12 @@
     "thead": [
         {"content": "Item"},
         {"content": "Prix de vente"},
-        {"content": "Prix de craft"},
-        {"content": "Bénéfice"},
-        {"content": "Taux de bénéfice"},
+        {"content": "Quantité"},
+        {"content": "Craft / u"},
+        {"content": "Bénéfice / u"},
+        {"content": "% bénéfice / u"},
+        {"content": "Craft total"},
+        {"content": "Bénéfice total"},
         {"content": "Informations / Actions"}
     ]
 }
