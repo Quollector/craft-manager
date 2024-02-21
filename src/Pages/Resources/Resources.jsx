@@ -18,7 +18,7 @@ export default function Resources() {
 
   useEffect(() => {
     if(searchQuery !== ""){
-      var filteredItems = listResourcesRaw.filter(elmt => formatString(elmt.name).includes(formatString(searchQuery)))
+      var filteredItems = listResourcesRaw.resources.filter(elmt => formatString(elmt.name).includes(formatString(searchQuery)))
       
       if(filteredItems.length > 0){
         setListResources(filteredItems)
@@ -44,7 +44,7 @@ export default function Resources() {
         <div className="resources">
           <SearchTool searchQueryResult={getSearchQuery} context="resources" />
 
-          {/* List Items */}
+          {/* List Resources */}
           { listIsEmpty ? 
           <h3 className="res-no-list-items roboto">Pas de résultat pour cette recherche</h3> : 
           <ul className="res-listItems">

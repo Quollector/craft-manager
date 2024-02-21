@@ -5,16 +5,14 @@ import SearchTool from "../../Components/Components/SearchTool";
 import Tcells from "./Components/Tcells"
 import Item from "./Components/Item"
 import json from "../../assets/config/dashboard.json"
+import items from "../../assets/config/items.json"
 import "./dashboard.css"
 
 function Dashboard() {
-  const listItemsRaw = [
-      {id: nanoid(8), name: "Bottes d'apprentissage", img: 1, craft: 16555, work: 0, cat: 0, level: 50, onsale: 1},
-      {id: nanoid(8), name: "Bottes d'apprentissage légères", img: 1, craft: 125000, work: 0, cat: 0, level: 50, onsale: 0},
-  ]
+  const listItemsRaw = items.items
 
   const [searchQuery, setSearchQuery] = useState("")
-  const [listItems, setListItems] = useState(listItemsRaw)
+  const [listItems, setListItems] = useState(items.items)
   const [listIsEmpty, setListIsEmpty] = useState(false)
 
   const getSearchQuery = (query) => {

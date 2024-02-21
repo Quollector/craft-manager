@@ -1,0 +1,32 @@
+{
+    "items": [
+        {
+            "id": 1, 
+            "name": "Bottes d'apprentissage", 
+            "img": 1, 
+            "work": 0, 
+            "cat": 0, 
+            "level": 50, 
+            "onsale": 1, 
+            "recipe":[
+                {"id": 1, "qty": 4},
+                {"id": 2, "qty": 1},
+                {"id": 4, "qty": 10}
+            ]
+        },
+        {
+            "id": 2, 
+            "name": "Bottes d'apprentissage légères", 
+            "img": 1, 
+            "work": 0, 
+            "cat": 1, 
+            "level": 56, 
+            "onsale": 0, 
+            "recipe":[
+                {"id": 3, "qty": 5},
+                {"id": 4, "qty": 1},
+                {"id": 5, "qty": 3}
+            ]
+        }
+    ]
+}

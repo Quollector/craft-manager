@@ -3,12 +3,13 @@ import kamas from "../../../assets/kamas.svg"
 import pourcent from "../../../assets/pourcent-b.svg"
 import { Icon } from '@iconify/react';
 import craftNames from "../../../assets/config/craftswork.json"
+import useCraftPrice from "../../../Components/Hooks/useCraftPrice";
 
 export default function Item({itemData}) {
     const [price, setPrice] = useState(30000)
     const [benef, setBenef] = useState(false)
     const [benefRatio, setBenefRatio] = useState(false)
-    const [craftPrice, setCraftPrice] = useState(15000)
+    const craftPrice = useCraftPrice(itemData)
     const [onSale, setOnSale] = useState(itemData.onsale)
     const [visualBalance, setVisualBalance] = useState("holding")
     const [firstView, setFirstView] = useState(true)
@@ -17,12 +18,15 @@ export default function Item({itemData}) {
 
     // change benef and ratio on input change
     useEffect(handlePricesChange, [price, craftPrice])
-
-    function handlePricesChange(){
+    
+    useEffect(() => { 
         if(!firstView){
-            saveButton.current.classList.add("active")
+            saveButton.current.classList.add("active") 
         }
         setFirstView(false)
+    }, [price])
+
+    function handlePricesChange(){
         
         if( price != 0 && craftPrice != 0){
             var newBenef = parseInt(price - craftPrice - (price * 0.02))
@@ -90,7 +94,7 @@ export default function Item({itemData}) {
         else{
             setVisualBalance("holding")
         }
-    }, [benefRatio])
+    }, [price, benefRatio])
 
     return (
         <li>
@@ -104,12 +108,8 @@ export default function Item({itemData}) {
                     <input value={price ? price : 0} type="number" onChange={e => setPrice(e.target.value)} min={0} placeholder="0"/>
                     <img src={kamas} />
                 </li>
-                {/* <li className="item-result">
+                <li className="item-result">
                     <span>{formatNumbers(craftPrice, "int")}</span>
-                    <img src={kamas} />
-                </li> */}
-                <li className="item-input">
-                    <input value={craftPrice ? craftPrice : 0} type="number" onChange={e => setCraftPrice(e.target.value)} min={0} placeholder="0"/>
                     <img src={kamas} />
                 </li>
                 <li className="item-result">

@@ -1,0 +1,97 @@
+.itemsList{
+    padding: 24px 4vw;
+
+    .items-listItems{
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        align-items: stretch;
+        grid-gap: 32px;
+        list-style-type: none;
+        padding: 0;
+
+        .items-item{
+            background: #F2F2F2;
+            padding: 16px 0 0;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+
+            .item-img{
+                padding: 0 12px 12px;
+                text-align: center;
+    
+                img{
+                    width: 120px;
+                    height: 120px;
+                    object-fit: contain;
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+
+            .item-name{
+                padding: 0 12px 12px;
+                text-align: center;
+                flex-grow: 1;
+
+                p{
+                    margin: 0;
+                }
+            }
+
+            .item-price{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+
+                p{
+                    margin: 0;
+                    font-size: 20px;
+                }
+            }
+
+            .item-btns{
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                margin-top: 24px;
+
+                button{
+                    border: none;
+                    border-top: 4px solid white;
+                    width: 50%;
+                    height: 48px;
+                    cursor: pointer;
+                    transition: background .3s;
+    
+                    &:nth-child(2n - 1){
+                        border-right: 2px solid white;
+                    }
+    
+                    &:nth-child(2n){
+                        border-left: 2px solid white;
+                    }
+    
+                    svg{
+                        height: 30px;
+                        width: auto;
+    
+                        path{
+                            fill: white;
+                        }
+                    }
+    
+                    &.orange-btn{
+                        background: #F29C06;
+                        
+                        &:hover{
+                            background: #f8bb53;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

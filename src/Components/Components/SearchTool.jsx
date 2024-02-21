@@ -6,6 +6,7 @@ import ModalRes from "../../Pages/Resources/Components/ModalRes";
 export default function SearchTool({searchQueryResult, context}) {
     const [searchQuery, setsearchQuery] = useState("")
     const [addRes, setAddRes] = useState(false)
+    const [addItem, setAddItem] = useState(false)
 
     function filterItems(val){
         setsearchQuery(val)
@@ -18,6 +19,13 @@ export default function SearchTool({searchQueryResult, context}) {
         btnAdd = 
         <button onClick={() => setAddRes(true)} className="add-tool roboto">
             <span>Ajouter une ressource</span>
+            <Icon icon="pajamas:todo-add" />
+        </button>
+    }
+    else if( context === "items" ){
+        btnAdd = 
+        <button onClick={() => setAddItem(true)} className="add-tool roboto">
+            <span>Ajouter un item</span>
             <Icon icon="pajamas:todo-add" />
         </button>
     }

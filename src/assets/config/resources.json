@@ -1,9 +1,9 @@
 {
     "resources": [
-        {"name": "Kolérat Mort", "price": 1600, "img": "1"},
-        {"name": "Cuir de Cuirboule", "price": 1600, "img": "2"},
-        {"name": "Hélice", "price": 1600, "img": "3"},
-        {"name": "Salikrone", "price": 1600, "img": "4"},
-        {"name": "Pile Steamer", "price": 1600, "img": "5"}
+        {"id": 1, "name": "Kolérat Mort", "price": 1600, "img": "1"},
+        {"id": 2, "name": "Cuir de Cuirboule", "price": 800, "img": "2"},
+        {"id": 3, "name": "Hélice", "price": 2500, "img": "3"},
+        {"id": 4, "name": "Salikrone", "price": 450, "img": "4"},
+        {"id": 5, "name": "Pile Steamer", "price": 650, "img": "5"}
     ]
 }
